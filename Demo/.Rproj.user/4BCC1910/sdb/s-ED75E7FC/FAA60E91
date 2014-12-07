@@ -1,0 +1,16 @@
+{
+    "contents" : "library(shiny)\n\n#server.R\n\nshinyServer(function(input, output) {\n  \n  # Render graph  \n  output$radar <- renderPlot({\n    \n    # Load function\n    source(\"radar.R\")\n    \n    # Get values\n    values <- data.frame(\"Energy\"       = input$num1, \n                         \"Soil\"         = input$num2, \n                         \"Emmissions\"   = input$num3, \n                         \"Biodiversity\" = input$num4, \n                         \"Water\"        = input$num5, \n                         \"Land\"         = input$num6, \n                         \"Resource\"     = input$num7, \n                         \"Ecotoxity\"    = input$num8\n    )\n    \n    # Plot\n    webplot(values, col=\"darkgreen\")\n  })\n})",
+    "created" : 1417964787498.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1718290017",
+    "id" : "FAA60E91",
+    "lastKnownWriteTime" : 1417966330,
+    "path" : "~/Demo/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

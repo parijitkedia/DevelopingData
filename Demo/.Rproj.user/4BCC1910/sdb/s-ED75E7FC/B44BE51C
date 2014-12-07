@@ -1,0 +1,17 @@
+{
+    "contents" : "webplot = function(data, data.row = NULL, y.cols = NULL, main = \"Sustainable Indicators\", \n                   col = \"red\", lty = 1) {\n  if (!is.matrix(data) & !is.data.frame(data)) \n    stop(\"Requires matrix or data.frame\")\n  if (is.null(y.cols)) \n    y.cols = colnames(data)[sapply(data, is.numeric)]\n  if (is.null(data.row)) \n    data.row = 1\n  if (is.null(main)) \n    main = rownames(data)[data.row]\n  \n  data = as.data.frame(data)\n  n.y = length(y.cols)\n  min.rad = 360/n.y\n  polar.vals = (90 + seq(0, 360, length.out = n.y + 1)) * pi/180\n  \n  # plot\n  rstr  = as.character(max(data))\n  rstrd = substr(rstr, nchar(rstr), nchar(rstr))\n  #   raux = ifelse(rstrd == \"0\" | rstrd == \"2\" | rstrd == \"4\" | rstrd == \"6\" | rstrd == \"8\", max(data)+0.2,   max(data)+0.1)\n  raux = max(data) + 0.2\n  cons  = 0.4\n  #   par(mar=c(2,2,2,2))\n  plot(0, xlim = c(-cons-0.2, cons+0.2), ylim = c(-cons-0.2, cons+0.2), type = \"n\", axes = F, xlab = \"\", ylab = \"\")\n  \n  \n  #   \n  aux = data.frame(0, 0, 0, 0, 0, 0, 0, 0)\n  names(aux) = names(data)\n  \n  #   calculate segments for grid\n  segment.step = 0.2\n  n.segments   = round(((max(data)+0.2) / segment.step))\n  seg.df       = aux\n  \n  for(i in 1:n.segments) {\n    seg.df[i,] = i * segment.step + aux\n  }  \n  \n  #plot segment lines\n  for(i in 1:n.segments) {\n    r  = seg.df[i, y.cols]\n    xs = cons * r * cos(polar.vals)\n    ys = cons * r * sin(polar.vals)\n    xs = c(xs, xs[1])\n    ys = c(ys, ys[1])\n    lines(xs, ys, col = \"grey70\", lwd = 1, lty = 2)\n  }\n  \n  lapply(polar.vals, function(x) lines(c(0, cons * r * cos(x)), c(0, cons * r  * sin(x)),col=\"grey70\"))\n  \n  lapply(1:n.y, function(x) text((r+0.12) * cons * cos(polar.vals[x]), (r+0.12) * cons * sin(polar.vals[x]), y.cols[x], cex = 1.3))\n  #plot data\n  r =  data[data.row, y.cols]\n  xs = cons * r * cos(polar.vals)\n  ys = cons * r * sin(polar.vals)\n  xs = c(xs, xs[1])\n  ys = c(ys, ys[1])\n  lines(xs, ys, col = col, lwd = 1.5, lty = 1)\n  \n  avg = data.frame(0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4)\n  names(avg) = names(data)\n  r =  avg[data.row, y.cols]\n  xs = cons * r * cos(polar.vals)\n  ys = cons * r * sin(polar.vals)\n  xs = c(xs, xs[1])\n  ys = c(ys, ys[1])\n  lines(xs, ys, col = \"red\", lwd = 2, lty = 2)\n  \n}",
+    "created" : 1417966507094.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4078141840",
+    "id" : "B44BE51C",
+    "lastKnownWriteTime" : 1417966517,
+    "path" : "~/Demo/radar.R",
+    "project_path" : "radar.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
